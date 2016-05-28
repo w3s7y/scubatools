@@ -18,8 +18,8 @@ def best_bailout(depth):
 
 def dive(max_depth, dive_time, low_sp, high_sp):
     """Prints a report for a dive."""
-    print("CNS:\t\t" + str(utils.cns(high_sp, dive_time)) + "%")
-    print("OTU:\t\t" + str(utils.otu(high_sp, dive_time)))
+    print("CNS:\t\t" + str(utils.cns(high_sp+0.05, dive_time)) + "%")
+    print("OTU:\t\t" + str(utils.otu(high_sp+0.05, dive_time)))
     print("Best Bailout:\t" + str(best_bailout(max_depth)) + "% O2")
 
 
