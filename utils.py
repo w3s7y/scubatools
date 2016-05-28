@@ -45,18 +45,28 @@ OTU_TABLE = { 0.60: 0.26,
               1.55: 1.85,
               1.60: 1.92 }
 
-def mod(percent_O2, desired_max_po2):
+def round_to(n, precision):
+    """rounds a number to a given prescision. E.g. (32.7, 0.5) = 32.5"""
+    correction = 0.5 if n >= 0 else -0.5
+    return int( n/precision+correction ) * precision
+
+def mod(percent_O2, desired_max_pO2):
     """Returns the Max Operating Depth of a breathing gas, for a desired maximum partial pressure of Oxygen."""
     abs_mod = desired_max_po2 / (perco2/100)
     return math.floor((abs_mod-1) * 10)
 
-def cns(setpoint, time):
-    """Returns ceiling CNS% for a given setpoint & time"""
-    return math.ceil(CNS_TABLE[setpoint]*time)
+def cns(ppO2, time):
+    """Returns ceiling CNS% for a given ppO2 & time"""
+    if ppO2 > 1.6 or ppO2 < 0.6:
+        raise Exception('ppO2 outside range (0.6-1.6)')
+    # print(str(CNS_TABLE[round_to(ppO2, 0.05)]*time))
+    return round_to(CNS_TABLE[round_to(ppO2, 0.05)]*time, 0.5)
 
-def otu(setpoint, time):
-    """Return OTU for a given setpoint & time"""
-    return math.ceil(OTU_TABLE[setpoint]*time)
+def otu(ppO2, time):
+    """Return OTU for a given ppO2 & time"""
+    if ppO2 > 1.6 or ppO2 < 0.6:
+        raise Exception('ppO2 outside range (0.6-1.6)')
+    return round_to(OTU_TABLE[round_to(ppO2, 0.05)]*time, 0.5)
 
 
 
