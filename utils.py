@@ -52,14 +52,13 @@ def round_to(n, precision):
 
 def mod(percent_O2, desired_max_pO2):
     """Returns the Max Operating Depth of a breathing gas, for a desired maximum partial pressure of Oxygen."""
-    abs_mod = desired_max_po2 / (perco2/100)
+    abs_mod = desired_max_pO2 / (percent_O2/100)
     return math.floor((abs_mod-1) * 10)
 
 def cns(ppO2, time):
     """Returns ceiling CNS% for a given ppO2 & time"""
     if ppO2 > 1.6 or ppO2 < 0.6:
         raise Exception('ppO2 outside range (0.6-1.6)')
-    # print(str(CNS_TABLE[round_to(ppO2, 0.05)]*time))
     return round_to(CNS_TABLE[round_to(ppO2, 0.05)]*time, 0.5)
 
 def otu(ppO2, time):
