@@ -8,6 +8,7 @@ Python Package containing various tools to aid dive planning.  Including:
 ## Installation
 Install git & python onto your machine and clone this repo somewhere in pythons path. 
 #### E.g. cmdline install for Windows 7 (assuming you followed default installs for python and git)...
+Assumes you installed python for only the current user, if you installed python as an administrator, you will need to modify the file/folder permissions in order to sucessfully clone the repo into site-packages.
 
     cd C:\Users\Admin\AppData\Local\Programs\Python\Python35-32\lib\site-packages
     git clone https://github.com/w3s7y/scubatools.git
