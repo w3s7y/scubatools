@@ -1,21 +1,25 @@
-"""Gas blending functions (Very approximate).
+"""Gas blending functions (Very very approximate).
 Whenever a function calls for a gas mix it must be tuple in form (O2%, He%) e.g.
     18/35Tx would be (18, 35)
     Air would be (21, 00)
-    32% Nitrox would be (32, 00)."""
+    32% Nitrox would be (32, 00).
+
+All of these functions utilise "perfect" gas laws and do not calculate for the laws of thermodynamics (that's for another module!).
+"""
 import math
 from . import utils
 
 def decant(s_cyl_size, s_cyl_pressure, r_cyl_size, r_cyl_pressure):
-    """Returns cylinder pressures after decant."""
+    """Returns approximate cylinder pressures after decant (as float)."""
     total_vol = s_cyl_size + r_cyl_size
     s_lts = s_cyl_size * s_cyl_pressure
     r_lts = r_cyl_size * r_cyl_pressure
     return (s_lts + r_lts) / total_vol
 
 def decantTx(s_cyl_size, s_cyl_pressure, s_mix, r_cyl_size, r_cyl_pressure, r_mix):
-    """Non-air decanting, mix inputs are tuples (O2,He) and returns tuple in form ((O2,He), pressure).
-Restuls rounded to nearest 0.05 for gas percentages."""
+    """Nitrox/Heliox/Trimix decanting, mix inputs are tuples (O2,He) and returns tuple in form ((O2,He), pressure).
+Restuls rounded to nearest 0.05 for gas percentages.
+Returns Tuple in form ((O2%,He%), pressure)"""
     # Lts of each component gas in receiving cylinder.
     r_gas = r_cyl_size * r_cyl_pressure
     r_o2 = r_gas/100 * r_mix[0]
