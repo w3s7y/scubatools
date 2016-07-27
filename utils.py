@@ -3,6 +3,7 @@ import math
 
 """CNS% Load dictionary (ppO2:CNS% per min)."""
 CNS_TABLE = { 0.60: 0.14,
+              0.65: 0.16,
               0.70: 0.18,
               0.75: 0.20,
               0.80: 0.22,
@@ -25,6 +26,7 @@ CNS_TABLE = { 0.60: 0.14,
 
 """OTU Units dictionary (ppO2:OTU per min)."""
 OTU_TABLE = { 0.60: 0.26,
+              0.65: 0.39,
               0.70: 0.47,
               0.75: 0.56,
               0.80: 0.65,
@@ -66,5 +68,28 @@ def otu(ppO2, time):
         raise Exception('ppO2 outside range (0.6-1.6)')
     return round_to(OTU_TABLE[round_to(ppO2)]*time, 0.5)
 
+def toPSI(bar):
+    """Imperial suppport function, turn BAR into PSI."""
+    return bar*14.504
+
+def toBAR(psi):
+    """Imperial suppport function, turn PSI into BAR."""
+    return psi/14.504
+
+def toFeet(metres):
+    """Imperial suppport function, turn Metres into Feet."""
+    return metres*3.281
+
+def toMts(feet):
+    """Imperial suppport function, turn Feet into Metres."""
+    return feet*0.3048
+
+def toFarenheit(celsius):
+    """Imperial suppport function, turn degrees C into degrees F."""
+    return (celsius*1.8)+32
+
+def toCelsius(farenheit):
+    """Imperial suppport function, turn degrees F into degrees C."""
+    return (farenheit-32)/1.8
 
 
