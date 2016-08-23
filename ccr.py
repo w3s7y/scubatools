@@ -2,6 +2,8 @@
 import math
 from . import utils
 
+
+# Quick and easy functions.
 def percinbag(setpoint, depth):
     """Returns the approximate percentage of Oxygen in the loop for a given setpoint and depth."""
     absp = depth/10 + 1
@@ -27,7 +29,20 @@ Also the best bailout for the depth."""
     print("CNS:\t\t" + str(utils.cns(high_sp+0.05, dive_time)) + "%")
     print("OTU:\t\t" + str(utils.otu(high_sp+0.05, dive_time)))
     print("Best Bailout:\t" + str(best_bailout(max_depth)) + "% O2")
+    if max_depth >= 16:
+        print("EAD:\t\t" + str(ead(high_sp, max_depth)) + "M")
+    else:
+        print("EAD:\t\t" + str(ead(low_sp, max_depth)) + "M")
 
 
 
+class ccr_config:
+    # Default APD unit settings.
+    upDepth = 16
+    downDepth = 4
+    
+    
+    """Class that represents a eCCRs Configuration."""
+    def __init__(upDepth, downDepth):
+        """Initialization method."""
         
